@@ -70,7 +70,8 @@ const options: ApexOptions = {
     position: "top",
     horizontalAlign: "left",
     markers: {
-    radius: 99, // Circular markers
+      size: 12, // Use 'size' to control marker size (replaces 'width' and 'height')
+      shape: "circle", // Ensure circular markers
     },
     labels: {
       colors: "#F24822",
@@ -154,9 +155,7 @@ const ChartTwo: React.FC = () => {
       </div>
 
       {noData ? (
-        <div className="text-center text-sm text-gray-700">
-          No Revenue
-        </div>
+        <div className="text-center text-sm text-gray-700">No Revenue</div>
       ) : (
         <div>
           <ReactApexChart
