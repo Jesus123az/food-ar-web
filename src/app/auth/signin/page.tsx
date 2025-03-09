@@ -75,7 +75,7 @@ const SignIn: React.FC = () => {
 
         <div className="w-full md:w-2/3 p-6 flex flex-col space-y-6">
           <div className="flex flex-row justify-center items-center">
-            <span className="text-sm text-gray-600 dark:text-gray-300 pr-10">Don't have an account? </span>
+            <span className="text-sm text-gray-600 dark:text-gray-300 pr-10">Don&apos;t have an account? </span>
             <Link href="/auth/signup">
               <button className="w-full py-1 px-4 bg-[#FFC4A8] text-white font-medium rounded-md hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-orange-700 dark:hover:bg-orange-600">
                 Sign Up
