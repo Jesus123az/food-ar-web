@@ -66,32 +66,7 @@ const SignUp: React.FC = () => {
         } else {
             setError(`Failed to send email.`);
         }
-
-
-      // const response = await fetch(
-      //   "https://tyrtpmeuzdeofymvegnm.supabase.co/functions/v1/insert_restaurant",
-      //   {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify(restaurantData),
-      //   }
-      // );
-
-      // if (!response.ok) {
-      //   // Handle non-200 response
-      //   const errorText = await response.text();
-      //   if (response.status === 500 && errorText.includes("account already exists")) {
-      //     setError("Account already exists. Please try a different email.");
-      //   } else {
-      //     setError("Account already exists!");
-      //   }
-      // } else {
-      //   // Account successfully created
-      //   setMessage("Account Created Successfully!")
-      //   router.push('/auth/signin');
-      // }      
+  
     } catch (err) {
       setError("An error occurred. Please try again later.");
     } finally {

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
+import { Console } from "console";
 
 const SignIn: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -30,8 +31,10 @@ const SignIn: React.FC = () => {
     setLoading(true);
     setError(null);
 
+    // Construct the API URL using environment variables
+    const apiUrl = `${process.env.NEXT_PUBLIC_SUPABASE_API_KEY}login_restaurant`;
     // Simulate API request
-    const response = await fetch("https://tyrtpmeuzdeofymvegnm.supabase.co/functions/v1/login_restaurant", {
+    const response = await fetch(apiUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

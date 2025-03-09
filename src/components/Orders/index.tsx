@@ -47,9 +47,10 @@ const Orders = () => {
   const fetchOrders = async (restaurantId: string) => {
     setLoading(true);
     console.log("Restaurant ID:", restaurantId);
+    const apiUrl = `${process.env.NEXT_PUBLIC_SUPABASE_API_KEY}orders_restaurant`;
     try {
       const response = await fetch(
-        "https://tyrtpmeuzdeofymvegnm.supabase.co/functions/v1/orders_restaurant",
+        apiUrl,
         {
           method: "POST",
           headers: {
@@ -59,9 +60,9 @@ const Orders = () => {
           cache: "no-store",
         }
       );
-      console.log("API Response:", response);
+      //console.log("API Response:", response);
       const data = await response.json();
-      console.log("Parsed Data:", data);
+      //console.log("Parsed Data:", data);
 
       if (data.orders && data.orders.length > 0) {
         const order = data.orders[0];
@@ -126,9 +127,10 @@ const Orders = () => {
   const confirmAction = async () => {
     if (currentOrder) {
       const newStatus = confirmationType === "Cancel" ? 1 : 2;
+      const apiUrl = `${process.env.NEXT_PUBLIC_SUPABASE_API_KEY}update_order_status`;
       try {
         const response = await fetch(
-          "https://tyrtpmeuzdeofymvegnm.supabase.co/functions/v1/update_order_status",
+          apiUrl,
           {
             method: "POST",
             headers: {

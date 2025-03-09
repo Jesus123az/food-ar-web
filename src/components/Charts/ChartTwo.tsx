@@ -92,10 +92,13 @@ const ChartTwo: React.FC = () => {
   const router = useRouter();
 
   // Updated fetchData to accept restaurantId as a string
+
+  const apiUrl = `${process.env.NEXT_PUBLIC_SUPABASE_API_KEY}get_orders_and_revenue_per_month`;
+  
   const fetchData = async (restaurantId: string) => {
     try {
       const response = await fetch(
-        "https://tyrtpmeuzdeofymvegnm.supabase.co/functions/v1/get_orders_and_revenue_per_month",
+        apiUrl,
         {
           method: "POST",
           headers: {
