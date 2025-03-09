@@ -1,10 +1,9 @@
-'use client'
+"use client";
 
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from 'next/navigation';
-import { Console } from "console";
+import { useRouter } from "next/navigation";
 
 const SignIn: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -31,37 +30,39 @@ const SignIn: React.FC = () => {
     setLoading(true);
     setError(null);
 
-    // Construct the API URL using environment variables
     const apiUrl = `${process.env.NEXT_PUBLIC_SUPABASE_API_KEY}login_restaurant`;
-    // Simulate API request
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: formData.email,
-        password: formData.password,
-      }),
-    });
+    // Avoid logging the URL
+    // console.log("Constructed url", apiUrl);
 
-    const data = await response.json();
-    if (response.ok) {
-        // Store user id and other necessary data in localStorage (or cookies)
-        localStorage.setItem("userId", data.profile.id); // Store the user ID
-        localStorage.setItem("userEmail", data.profile.email); // Store the user email
-        localStorage.setItem("userFullName", data.profile.full_name); // Store the user full name
-        localStorage.setItem("userRating", data.profile.rating);      
-      // const data = await response.json();
-      console.log("Login successful", data);
-      setLoading(false);
-      // Redirect to the dashboard (or another page) after successful login
-      setMessage("Account Created Successfully!")
-      router.push('/orders');
-    } else {
+    try {
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        localStorage.setItem("userId", data.profile.id);
+        localStorage.setItem("userEmail", data.profile.email);
+        localStorage.setItem("userFullName", data.profile.full_name);
+        localStorage.setItem("userRating", data.profile.rating);
+        console.log("Login successful", data);
+        setLoading(false);
+        setMessage("Account Created Successfully!");
+        router.push("/orders");
+      } else {
+        throw new Error("Login failed");
+      }
+    } catch (err) {
+      // Suppress the error from appearing in the console
       setLoading(false);
       setError("Account doesn't exist!");
-      // router.push('/auth/signup');
     }
   };
 
@@ -74,7 +75,7 @@ const SignIn: React.FC = () => {
 
         <div className="w-full md:w-2/3 p-6 flex flex-col space-y-6">
           <div className="flex flex-row justify-center items-center">
-            <span className="text-sm text-gray-600 dark:text-gray-300 pr-10">Don&apos;t have an account? </span>
+            <span className="text-sm text-gray-600 dark:text-gray-300 pr-10">Don't have an account? </span>
             <Link href="/auth/signup">
               <button className="w-full py-1 px-4 bg-[#FFC4A8] text-white font-medium rounded-md hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-orange-700 dark:hover:bg-orange-600">
                 Sign Up
@@ -128,14 +129,6 @@ const SignIn: React.FC = () => {
               </div>
             </form>
           </div>
-
-          {/* <div className="mt-6 flex flex-col text-center items-center space-y-6">
-            <span className="text-sm text-gray-600 dark:text-gray-300">--- or --- </span>
-            <button className="flex items-center justify-center w-32 h-12 rounded-lg bg-white text-black hover:bg-[#F74C17] hover:text-white px-6 text-sm border-2 border-black transition-all">
-              <Image src="/images/logo/google.svg" width={25} height={25} alt="Google logo" />
-              <p className="px-4">Google</p>
-            </button>
-          </div> */}
         </div>
       </div>
     </div>
